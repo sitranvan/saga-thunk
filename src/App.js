@@ -1,58 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import HackerNews from './features/HackerNews'
+// import { useSelector } from 'react-redux'
+// import Counter from './features/Counter'
 
+import { getNews } from './sagas/news/newsSlice'
+// import Generator from './Generator'
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+    // const count = useSelector((state) => state.counter.count)
+    // const count = useSelector((state) => state.value)
+
+    // saga
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getNews())
+    }, [dispatch])
+
+    const hits = useSelector((state) => state.news.hits)
+    console.log(hits)
+
+    return (
+        <div className='text-center p-10 w-screen'>
+            {/* <Counter />
+            <h2 className='my-4 text-purple-600 font-semibold text-xl'>
+                App.js: Value taken from the features Counter <br />
+                <span className='inline-block rounded-full w-10 h-10 leading-10 text-center mt-2 text-white bg-red-400'>
+                    {count}
+                </span>
+            </h2> */}
+            {/* <Generator /> */}
+            <HackerNews />
+        </div>
+    )
 }
 
-export default App;
+export default App
